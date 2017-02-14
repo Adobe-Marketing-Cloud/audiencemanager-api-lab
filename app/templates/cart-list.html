@@ -1,0 +1,42 @@
+
+<p>Your cart contains {{ cart_count }} items with a total price of <b>${{ cart_total }}</b></p>
+{% if cart_count > 0 %}
+    <div class="panel panel-default cart-panel">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped table-bordered cart-table">
+                <tbody>
+                    {% for product in cart_list %}
+                        <tr>
+                            <td class="table-image">
+                                <div class="thumbnail">
+                                    <img class="card-img-top" src="{{ MEDIA_URL }}{{ product.image }}" alt="image">
+                                </div>
+                            </td>
+                            <td>
+                                <p>{{ product.name }}</p>
+                                <p><small>Category: {{ product.category }}</small></p>
+                            </td>
+                            <td>
+                                <small>Quantity </small><span class="badge">{{ product.quantity }}</span>
+                            </td>
+                            <td width="150px" style="text-align: right">
+                                <b>${{ product.price }}</b><small> each</small>
+                            </td>
+                            <td align="middle" class="table-button">
+                                <a href="cart?add={{ product.id }}">
+                                    <button type="button" class="btn btn-success">Add <span class="glyphicon glyphicon-plus"></span></button>
+                                </a>
+                                <a href="cart?remove={{ product.id }}">
+                                    <button type="button" class="btn btn-danger">Remove <span class="glyphicon glyphicon-minus"></span></button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}

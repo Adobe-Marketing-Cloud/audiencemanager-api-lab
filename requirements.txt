@@ -1,0 +1,4 @@
+Django==1.8.17
+django-admin-bootstrapped==2.5.7
+Pillow==3.4.2
+requests==2.12.4

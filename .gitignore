@@ -1,0 +1,9 @@
+**/*.pyc
+**/*._*
+**/*.DS_Store
+**/*.log
+**/*.out
+**/*.out
+**/*.idea
+**/*.iml
+env
