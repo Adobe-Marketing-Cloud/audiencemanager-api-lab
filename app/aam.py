@@ -20,18 +20,19 @@ def api_exchange(method, url, payload=None):
         'Content-Type': 'application/json'
     }
 
-    if method == 'GET':
+    if method == GET:
         response = requests.get(url, headers=headers)
-    elif method == 'POST':
+    elif method == POST:
         response = requests.post(url, headers=headers, data=json.dumps(payload))
-    elif method == 'PUT':
+    elif method == PUT:
         response = requests.put(url, headers=headers, data=json.dumps(payload))
-    elif method == 'DELETE':
+    elif method == DELETE:
         response = requests.delete(url, headers=headers)
     else:
         raise ValueError('Unsupported HTTP method: %s' % method)
 
     print ('AAM API Response: %s' % response.status_code)
+    if response: print json.dumps(response.json(), indent=4)
     return response
 
 
@@ -190,6 +191,7 @@ def create_category_segment(category):
     response = api_exchange(POST, configs.AAM_SEGMENT_API_PATH, segment)
     segment = response.json()
     print 'AAM segment create:', segment
+    map_segment_to_destination(segment['sid'])
     return segment
 
 
@@ -201,7 +203,31 @@ def update_category_segment(old_category, new_category):
         response = api_exchange(PUT, configs.AAM_SEGMENT_API_PATH + '/' + str(segment['sid']), segment)
         segment = response.json()
         print 'AAM segment update:', segment
-        return segment
     else:
-        return create_category_segment(new_category)
+        segment = create_category_segment(new_category)
+    map_segment_to_destination(segment['sid'])
+    return segment
+
+
+def map_segment_to_destination(segment_id):
+    destinationId = configs.AAM_DESTINATION_ID
+
+    response = api_exchange(GET, configs.AAM_DESTINATION_API_PATH+ '/' + destinationId + '/mappings')
+    if successful(response):
+        mappings = response.json()
+        for mapping in mappings:
+            if mapping['sid'] == segment_id:
+                return mapping
+
+    mapping = {
+        "traitType": "SEGMENT",
+        "sid": segment_id,
+        "startDate": "2017-02-14",
+        "traitAlias": str(segment_id)
+    }
+    response = api_exchange(POST, configs.AAM_DESTINATION_API_PATH+ '/' + destinationId + '/mappings', mapping)
+    mapping = response.json()
+
+    print 'AAM segment mapping create:', mapping
+    return mapping
 
