@@ -1,0 +1,25 @@
+
+<p>Filter / Search</p>
+<div id="search" class="search-bar input-group">
+
+    <span class="input-group-btn">
+        <button type="button" class="btn btn-teal dropdown-toggle" data-toggle="dropdown">
+            <span id="search_category_label">All Categories</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            {% if category_list %}
+                {% for category in category_list %}
+                    <li><a href="#{{ category.id }}">{{ category.name }}</a></li>
+                {% endfor %}
+                <li class="divider"></li>
+            {% endif %}
+            <li><a href="#all">All Categories</a></li>
+        </ul>
+    </span>
+    <input type="hidden" name="search_param" value="0" id="search_category">
+    <input type="text" class="form-control" name="x" placeholder="Search...">
+    <span class="input-group-btn">
+        <button class="btn btn-teal" type="button"><span class="glyphicon glyphicon-search"></span></button>
+    </span>
+
+</div>

@@ -1,0 +1,21 @@
+{% load static %}
+
+<link rel="shortcut icon" type="image/png" href="{{ MEDIA_URL }}/images/favicon.ico"/>
+
+<link rel="stylesheet" href="{{ MEDIA_URL }}bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ MEDIA_URL }}bootstrap/css/bootstrap-flex.min.css">
+<link rel="stylesheet" href="{{ MEDIA_URL }}bootstrap/css/bootstrap-grid.min.css">
+<link rel="stylesheet" href="{{ MEDIA_URL }}bootstrap/css/bootstrap-reboot.min.css">
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/app.css">
+<script src="{{ MEDIA_URL }}js/jquery.min.js"></script>
+<script src="{{ MEDIA_URL }}bootstrap/js/bootstrap.min.js"></script>
+<script src="{{ MEDIA_URL }}js/app.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<div class="navbar-static-top navbar-dark bg-inverse">
+    <div class="navbar container-fluid">
+        <a href="/" class="navbar-brand"><span class="glyphicon glyphicon-home"></span> {{ app_verbose_name }}</a>
+        <a href="cart" class="navbar-cart"><span class="glyphicon glyphicon-shopping-cart"></span> Cart ({{ cart_count }} items)</a>
+    </div>
+</div>

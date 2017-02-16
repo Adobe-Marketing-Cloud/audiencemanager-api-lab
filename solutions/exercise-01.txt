@@ -1,0 +1,9 @@
+# Exercise-01 - Use curl to generate a new API token
+====================================================
+
+
+curl -X POST https://api-sandbox.demdex.com/oauth/token --user summit2017:summit2017 --data 'grant_type=password&username=summit2017test&password=PASS'
+
+
+# Place the access token in configs/aam_config.py file
+

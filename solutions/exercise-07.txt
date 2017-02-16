@@ -1,0 +1,8 @@
+# Exercise-07 - Create a Destination in AAM UI and map Segments automatically
+=============================================================================
+
+
+# Create URL Destination by logging in to AAM UI
+
+#=== aam.py ===
+
