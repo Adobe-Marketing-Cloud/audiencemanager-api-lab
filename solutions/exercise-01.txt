@@ -2,7 +2,7 @@
 ====================================================
 
 
-curl -X POST https://use-qe4-api1.demdex.com/oauth/token --user summit2017:summit2017 --data 'grant_type=password&username=USER&password=PASS'
+curl -X POST https://api-sandbox.demdex.com/oauth/token --user summit2017:summit2017 --data 'grant_type=password&username=summit2017test&password=PASS'
 
 
 # Place the access token in configs/aam_config.py file

@@ -36,7 +36,6 @@ def organize_cart(request):
     cart_list = []
     for product in quantity_map:
         product.quantity = quantity_map[product]
-        print(product, product.quantity)
         cart_list.append(product)
 
     request.session[CART] = cart_list
