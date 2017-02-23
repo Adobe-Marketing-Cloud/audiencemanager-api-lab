@@ -2,7 +2,7 @@
 ===============================================================
 
 
-#=== aam.py ===
+#------ aam.py ------
 
 def get_category_segment(category):
     segment_ic = 'category-' + str(category.id)
@@ -48,10 +48,20 @@ def update_category_segment(old_category, new_category):
     if segment is not None:
         segment['name'] = 'Interested in ' + new_category.name
         segment['segmentRule'] = generate_segment_rule_for_category(new_category)
-        response = api_exchange(PUT, configs.AAM_SEGMENT_API_PATH + '/' + str(segment['sid']), segment)
+        segment_id = str(segment['sid'])
+        response = api_exchange(PUT, configs.AAM_SEGMENT_API_PATH + '/' + segment_id, segment)
         segment = response.json()
         print 'AAM segment update:', segment
-        return segment
     else:
-        return create_category_segment(new_category)
+        segment = create_category_segment(new_category)
+    return segment
 
+
+
+#------ models.py ------
+
+# when a new Product is being created
+aam.update_category_segment(self.category, self.category)
+
+# when an existing Category is being updated
+aam.update_category_segment(old_category, self)

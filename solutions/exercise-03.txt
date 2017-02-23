@@ -2,7 +2,7 @@
 =====================================================
 
 
-#=== aam.py ===
+#------ aam.py ------
 
 def get_or_create_shop_datasource():
     response = api_exchange(GET, configs.AAM_DATASOURCE_API_PATH + '?integrationCode=shop')
@@ -23,3 +23,9 @@ def get_or_create_shop_datasource():
         datasource = response.json()
     print 'AAM datasource:', datasource
     return datasource
+
+
+
+#------ models.py ------
+
+aam.get_or_create_shop_datasource()

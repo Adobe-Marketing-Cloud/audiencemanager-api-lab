@@ -1,3 +1,4 @@
+#------ Exercise 02 ------
 
 import requests, time, json
 from django.conf import settings as configs
@@ -44,6 +45,8 @@ def get_self():
     response = api_exchange(GET, configs.AAM_SELF_USER_API_PATH)
 
 
+#------ Exercise 03 ------
+
 def get_or_create_shop_datasource():
     response = api_exchange(GET, configs.AAM_DATASOURCE_API_PATH + '?integrationCode=shop')
 
@@ -64,6 +67,8 @@ def get_or_create_shop_datasource():
     print 'AAM datasource:', datasource
     return datasource
 
+
+#------ Exercise 04 ------
 
 def get_category_trait_folder(category):
     folder_name = category.name
@@ -107,6 +112,8 @@ def get_or_create_category_trait_folder(category):
     else:
         return create_category_trait_folder(category)
 
+
+#------ Exercise 05 ------
 
 def get_product_trait(product):
     trait_ic = 'product-' + str(product.id)
@@ -154,6 +161,8 @@ def get_or_create_product_trait(product):
     else:
         return create_product_trait(product)
 
+
+#------ Exercise 06 ------
 
 def get_category_segment(category):
     segment_ic = 'category-' + str(category.id)
@@ -209,6 +218,8 @@ def update_category_segment(old_category, new_category):
     map_segment_to_destination(segment['sid'])
     return segment
 
+
+#------ Exercise 07 ------
 
 def map_segment_to_destination(segment_id):
     destination_id = configs.AAM_DESTINATION_ID

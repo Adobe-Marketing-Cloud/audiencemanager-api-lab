@@ -18,16 +18,14 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            # object is being created
+            # Category is being created
             super(Category, self).save(*args, **kwargs)
-            #aam.create_category_trait_folder(self)
-            #aam.create_category_segment(self)
+            aam.create_category_trait_folder(self)
         else:
-            # object is being updated
+            # Category is being updated
             old_category = Category.objects.get(id=self.id)
             super(Category, self).save(*args, **kwargs)
-            #aam.update_category_trait_folder(old_category, self)
-            #aam.update_category_segment(old_category, self)
+            aam.update_category_trait_folder(old_category, self)
 
 
 class Product(models.Model):
@@ -43,12 +41,12 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            # object is being created
+            # Product is being created
             super(Product, self).save(*args, **kwargs)
             #aam.create_product_trait(self)
             #aam.update_category_segment(self.category, self.category)
         else:
-            # object is being updated
+            # Product is being updated
             old_product = Product.objects.get(id=self.id)
             super(Product, self).save(*args, **kwargs)
             #aam.update_product_trait(old_product, self)
