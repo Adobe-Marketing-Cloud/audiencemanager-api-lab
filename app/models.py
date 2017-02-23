@@ -3,10 +3,8 @@ from django.db import models
 from . import aam
 from . import utils
 
-
-# check API access
-aam.get_self()
-
+#aam.get_self()
+#aam.get_or_create_shop_datasource()
 
 class Category(models.Model):
     name = models.CharField(max_length=255, blank=False)

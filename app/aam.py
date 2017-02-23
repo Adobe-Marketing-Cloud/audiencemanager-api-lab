@@ -1,6 +1,5 @@
-import requests
-import time
-import json
+
+import requests, time, json
 from django.conf import settings as configs
 
 
@@ -43,7 +42,6 @@ def successful(response):
 
 def get_self():
     response = api_exchange(GET, configs.AAM_SELF_USER_API_PATH)
-    print 'AAM API user info:', json.dumps(response.json(), indent=4)
 
 
 def get_or_create_shop_datasource():
@@ -94,7 +92,8 @@ def update_category_trait_folder(old_category, new_category):
     folder = get_category_trait_folder(old_category)
     if folder is not None:
         folder['name'] = new_category.name
-        response = api_exchange(PUT, configs.AAM_TRAIT_FOLDER_API_PATH + '/' + str(folder['folderId']), folder)
+        folder_id = str(folder['folderId'])
+        response = api_exchange(PUT, configs.AAM_TRAIT_FOLDER_API_PATH + '/' + folder_id, folder)
         print 'AAM trait folder update:', response
         return folder
     else:
@@ -139,7 +138,8 @@ def update_product_trait(old_product, new_product):
     trait = get_product_trait(old_product)
     if trait is not None:
         trait['name'] = 'Interested in ' + new_product.name
-        response = api_exchange(PUT, configs.AAM_TRAIT_API_PATH + '/' + str(trait['sid']), trait)
+        trait_id = str(trait['sid'])
+        response = api_exchange(PUT, configs.AAM_TRAIT_API_PATH + '/' + trait_id, trait)
         trait = response.json()
         print 'AAM trait update:', trait
         return trait
@@ -200,7 +200,8 @@ def update_category_segment(old_category, new_category):
     if segment is not None:
         segment['name'] = 'Interested in ' + new_category.name
         segment['segmentRule'] = generate_segment_rule_for_category(new_category)
-        response = api_exchange(PUT, configs.AAM_SEGMENT_API_PATH + '/' + str(segment['sid']), segment)
+        segment_id = str(segment['sid'])
+        response = api_exchange(PUT, configs.AAM_SEGMENT_API_PATH + '/' + segment_id, segment)
         segment = response.json()
         print 'AAM segment update:', segment
     else:
@@ -210,9 +211,9 @@ def update_category_segment(old_category, new_category):
 
 
 def map_segment_to_destination(segment_id):
-    destinationId = configs.AAM_DESTINATION_ID
+    destination_id = configs.AAM_DESTINATION_ID
 
-    response = api_exchange(GET, configs.AAM_DESTINATION_API_PATH+ '/' + destinationId + '/mappings')
+    response = api_exchange(GET, configs.AAM_DESTINATION_API_PATH+ '/' + destination_id + '/mappings')
     if successful(response):
         mappings = response.json()
         for mapping in mappings:
@@ -225,7 +226,7 @@ def map_segment_to_destination(segment_id):
         "startDate": "2017-02-14",
         "traitAlias": str(segment_id)
     }
-    response = api_exchange(POST, configs.AAM_DESTINATION_API_PATH+ '/' + destinationId + '/mappings', mapping)
+    response = api_exchange(POST, configs.AAM_DESTINATION_API_PATH+ '/' + destination_id + '/mappings', mapping)
     mapping = response.json()
 
     print 'AAM segment mapping create:', mapping
