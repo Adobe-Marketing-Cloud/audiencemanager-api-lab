@@ -60,8 +60,8 @@ def update_category_segment(old_category, new_category):
 
 #------ models.py ------
 
-# when a new Product is being created
-aam.update_category_segment(self.category, self.category)
-
 # when an existing Category is being updated
 aam.update_category_segment(old_category, self)
+
+# when a new Product is being created
+aam.update_category_segment(self.category, self.category)

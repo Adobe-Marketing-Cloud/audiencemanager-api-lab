@@ -200,7 +200,7 @@ def create_category_segment(category):
     response = api_exchange(POST, configs.AAM_SEGMENT_API_PATH, segment)
     segment = response.json()
     print 'AAM segment create:', segment
-    map_segment_to_destination(segment['sid'])
+    #map_segment_to_destination(segment['sid'])
     return segment
 
 
@@ -215,7 +215,7 @@ def update_category_segment(old_category, new_category):
         print 'AAM segment update:', segment
     else:
         segment = create_category_segment(new_category)
-    map_segment_to_destination(segment['sid'])
+    #map_segment_to_destination(segment['sid'])
     return segment
 
 
@@ -235,7 +235,7 @@ def map_segment_to_destination(segment_id):
         "traitType": "SEGMENT",
         "sid": segment_id,
         "startDate": "2017-02-14",
-        "traitAlias": str(segment_id)
+        "traitAlias": segment_id
     }
     response = api_exchange(POST, configs.AAM_DESTINATION_API_PATH+ '/' + destination_id + '/mappings', mapping)
     mapping = response.json()
