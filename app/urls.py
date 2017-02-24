@@ -9,6 +9,7 @@ from . import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^app/$', views.view_index, name='index'),
+    url(r'^app/products/(?P<product_id>\d+)/$', views.view_product, name='product'),
     url(r'^app/cart$', views.view_cart, name='cart'),
     url(r'^$', RedirectView.as_view(url='app/', permanent=False)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

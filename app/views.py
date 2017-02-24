@@ -109,6 +109,14 @@ def view_index(request):
     return render(request, 'index.html', context)
 
 
+def view_product(request, product_id):
+    product = Product.objects.get(id=product_id)
+    context = {
+        'product': product,
+    }
+    return render(request, 'product.html', context)
+
+
 def view_cart(request):
     initialize_cart(request)
 

@@ -2,7 +2,7 @@
 ============================================================
 
 
-#=== aam.py ===
+#------ aam.py ------
 
 def get_product_trait(product):
     trait_ic = 'product-' + str(product.id)
@@ -34,7 +34,8 @@ def update_product_trait(old_product, new_product):
     trait = get_product_trait(old_product)
     if trait is not None:
         trait['name'] = 'Interested in ' + new_product.name
-        response = api_exchange(PUT, configs.AAM_TRAIT_API_PATH + '/' + str(trait['sid']), trait)
+        trait_id = str(trait['sid'])
+        response = api_exchange(PUT, configs.AAM_TRAIT_API_PATH + '/' + trait_id, trait)
         trait = response.json()
         print 'AAM trait update:', trait
         return trait
@@ -48,3 +49,13 @@ def get_or_create_product_trait(product):
         return trait
     else:
         return create_product_trait(product)
+
+
+
+#------ models.py ------
+
+# when a new Product is being created
+aam.create_product_trait(self)
+
+# when an existing Product is being updated
+aam.update_product_trait(old_product, self)

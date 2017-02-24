@@ -2,7 +2,7 @@
 ====================================================================
 
 
-#=== aam.py ===
+#------ aam.py ------
 
 def get_category_trait_folder(category):
     folder_name = category.name
@@ -31,7 +31,8 @@ def update_category_trait_folder(old_category, new_category):
     folder = get_category_trait_folder(old_category)
     if folder is not None:
         folder['name'] = new_category.name
-        response = api_exchange(PUT, configs.AAM_TRAIT_FOLDER_API_PATH + '/' + str(folder['folderId']), folder)
+        folder_id = str(folder['folderId'])
+        response = api_exchange(PUT, configs.AAM_TRAIT_FOLDER_API_PATH + '/' + folder_id, folder)
         print 'AAM trait folder update:', response
         return folder
     else:
@@ -44,3 +45,13 @@ def get_or_create_category_trait_folder(category):
         return folder
     else:
         return create_category_trait_folder(category)
+
+
+
+#------ models.py ------
+
+# when a new Category is being created
+aam.create_category_trait_folder(self)
+
+# when an existing Category is being updated
+aam.update_category_trait_folder(old_category, self)

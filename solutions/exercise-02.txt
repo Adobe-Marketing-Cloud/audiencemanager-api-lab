@@ -2,11 +2,9 @@
 =========================================================
 
 
-#=== aam.py ===
+#------ aam.py ------
 
-import requests
-import time
-import json
+import requests, time, json
 from django.conf import settings as configs
 
 
@@ -38,6 +36,7 @@ def api_exchange(method, url, payload=None):
         raise ValueError('Unsupported HTTP method: %s' % method)
 
     print ('AAM API Response: %s' % response.status_code)
+    if response: print json.dumps(response.json(), indent=4)
     return response
 
 
@@ -48,11 +47,10 @@ def successful(response):
 
 def get_self():
     response = api_exchange(GET, configs.AAM_SELF_USER_API_PATH)
-    print 'AAM API user info:', json.dumps(response.json(), indent=4)
 
 
 
-#=== models.py ===
+#------ models.py ------
 
 from . import aam.py
 
