@@ -15,7 +15,7 @@
 
 <div class="navbar-static-top navbar-dark bg-inverse">
     <div class="navbar container-fluid">
-        <a href="/" class="navbar-brand"><span class="glyphicon glyphicon-home"></span> {{ app_verbose_name }}</a>
-        <a href="cart" class="navbar-cart"><span class="glyphicon glyphicon-shopping-cart"></span> Cart ({{ cart_count }} items)</a>
+        <a href="{% url 'app.views.view_index' %}" class="navbar-brand"><span class="glyphicon glyphicon-home"></span> {{ app_verbose_name }}</a>
+        <a href="{% url 'app.views.view_cart' %}" class="navbar-cart"><span class="glyphicon glyphicon-shopping-cart"></span> Cart ({{ cart_count }} items)</a>
     </div>
 </div>

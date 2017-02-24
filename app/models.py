@@ -1,10 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
-from . import aam
 from . import utils
 
-#aam.get_self()
-#aam.get_or_create_shop_datasource()
 
 class Category(models.Model):
     name = models.CharField(max_length=255, blank=False)
@@ -20,13 +17,10 @@ class Category(models.Model):
         if not self.id:
             # Category is being created
             super(Category, self).save(*args, **kwargs)
-            aam.create_category_trait_folder(self)
         else:
             # Category is being updated
             old_category = Category.objects.get(id=self.id)
             super(Category, self).save(*args, **kwargs)
-            aam.update_category_trait_folder(old_category, self)
-            aam.update_category_segment(old_category, self)
 
 
 class Product(models.Model):
@@ -44,10 +38,7 @@ class Product(models.Model):
         if not self.id:
             # Product is being created
             super(Product, self).save(*args, **kwargs)
-            aam.create_product_trait(self)
-            aam.update_category_segment(self.category, self.category)
         else:
             # Product is being updated
             old_product = Product.objects.get(id=self.id)
             super(Product, self).save(*args, **kwargs)
-            aam.update_product_trait(old_product, self)

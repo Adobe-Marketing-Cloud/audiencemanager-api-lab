@@ -26,10 +26,10 @@
                                 <b>${{ product.price }}</b><small> each</small>
                             </td>
                             <td align="middle" class="table-button">
-                                <a href="cart?add={{ product.id }}">
+                                <a href="{% url 'app.views.view_cart' %}?add={{ product.id }}">
                                     <button type="button" class="btn btn-success">Add <span class="glyphicon glyphicon-plus"></span></button>
                                 </a>
-                                <a href="cart?remove={{ product.id }}">
+                                <a href="{% url 'app.views.view_cart' %}?remove={{ product.id }}">
                                     <button type="button" class="btn btn-danger">Remove <span class="glyphicon glyphicon-minus"></span></button>
                                 </a>
                             </td>

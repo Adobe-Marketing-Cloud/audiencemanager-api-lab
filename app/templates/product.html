@@ -1,0 +1,26 @@
+{% include 'header.html' %}
+
+<div class="container-fluid">
+{% if product %}
+    <div class="card">
+        <div class="thumbnail">
+        <img class="card-img-top" src="{{ MEDIA_URL }}{{ product.image }}" alt="image">
+        </div>
+        <div class="card-block">
+            <a href="{% url 'app.views.view_product' product_id=product.id %}">
+            <h4 class="card-title">{{ product.name }}</h4>
+            </a>
+            <p class="card-text">{{ product.description }}</p>
+            <p class="card-text"><small class="text-muted">Category: {{ product.category }}</small></p>
+            <p>Price: <b>${{ product.price }}</b></p>
+            <a href="{% url 'app.views.view_cart' %}?add={{ product.id }}">
+                <button class="btn btn-teal-outline btn-lg btn-block"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart</button>
+            </a>
+        </div>
+    </div>
+{% else %}
+    <p>Could not find the requested product.</p>
+{% endif %}
+</div>
+
+{% include 'footer.html' %}
