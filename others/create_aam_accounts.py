@@ -1,5 +1,6 @@
 import requests
 import json
+import base64
 
 
 API_BASE_URL = 'https://api-beta.demdex.com/v1'
@@ -34,21 +35,13 @@ def post(url, payload):
     global token
     return exchange('POST', API_BASE_URL + url, payload, token)
 
-
-if __name__ == "__main__":
-    global token
-    token = raw_input('Enter token: ')
-    partner_name = raw_input('Enter partner name: ')
-    partner_subdomain = raw_input('Enter partner subdomain: ')
-    user_username = raw_input('Enter username: ')
-    user_password = raw_input('Enter password: ')
-
+def create_account(partner_name, partner_subdomain, user_username, user_password):
     partner = {
         'name': partner_name,
         'description': partner_name,
         'subdomain': partner_subdomain,
-        'accountTypes': ['FULL_AAM', 'DATA_PROVIDER', 'VISITOR_ID_SERVICE'],
-        'lifecycle': 'ACTIVE',   
+        'accountTypes': ['FULL_AAM', 'VISITOR_ID_SERVICE'],
+        'lifecycle': 'DEMO',
     }
     response = post('/admin/partners/', partner)
     partner = response.json()
@@ -67,7 +60,19 @@ if __name__ == "__main__":
     response = post('/users/', user)
     user = response.json()
     print user
+    print
 
-    
-    
-    
+if __name__ == "__main__":
+    global token
+    token = raw_input('Enter token: ')
+    # partner_name = raw_input('Enter partner name: ')
+    # partner_subdomain = raw_input('Enter partner subdomain: ')
+    # user_username = raw_input('Enter username: ')
+    user_password = raw_input('Enter password: ')
+    for i in range(0,1):
+        print i
+        partner_name = 'summit-lab-partner-%d' % i
+        partner_subdomain = partner_name
+        user_username = 'summit-lab-user-%d' % i
+        create_account(partner_name, partner_subdomain, user_username, user_password)
+
