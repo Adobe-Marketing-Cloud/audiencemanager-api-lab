@@ -429,19 +429,19 @@ def map_segment_to_destination(segment_id):
 
 * Create separate traits for visitors who have clicked, searched, added to cart or bought a product.
 
-* Delete AAM data point when a Product or Category is deleted.
-
-* Use Visitor.js or Data Integration Library to send visitor activity to Audience Manager.
+* Use Visitor API or Data Integration Library to send visitor activity to Audience Manager.
 
 * Use Declared ID for authenticated activity.
 
 * Join with traits from other sources like Audience Marketplace and 3rd Party data sharing to create richer segments.
 
-* Display metrics on a category or product trait or segment.
+* Delete AAM data points when a Product or Category is deleted.
+
+* Display metrics on a Category or Product Trait or Segment.
 
 * Handle access token expiration.
 
 * Store Audience Manager credentials encrypted.
 
-* Use a dedicated API user separate from UI user.
+* Use a dedicated API user that is separate from UI user.
 
