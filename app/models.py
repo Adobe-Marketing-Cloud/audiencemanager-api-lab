@@ -27,6 +27,7 @@ class Category(models.Model):
             old_category = Category.objects.get(id=self.id)
             super(Category, self).save(*args, **kwargs)
             aam.update_category_trait_folder(old_category, self)
+            aam.update_category_segment(old_category, self)
 
 
 class Product(models.Model):
@@ -45,6 +46,7 @@ class Product(models.Model):
             # Product is being created
             super(Product, self).save(*args, **kwargs)
             aam.create_product_trait(self)
+            aam.update_category_segment(self.category, self.category)
         else:
             # Product is being updated
             old_product = Product.objects.get(id=self.id)

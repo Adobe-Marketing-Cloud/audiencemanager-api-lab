@@ -154,3 +154,56 @@ def get_or_create_product_trait(product):
     else:
         return create_product_trait(product)
 
+
+def get_category_segment(category):
+    segment_ic = 'category-' + str(category.id)
+    response = api_exchange(GET, configs.AAM_SEGMENT_API_PATH + '/ic:' + segment_ic)
+    if successful(response):
+        segment = response.json()
+        return segment
+    else:
+        return None
+
+
+def generate_segment_rule_for_category(category):
+    trait_sids = []
+    for product in category.get_products():
+        trait_sids.append(str(get_or_create_product_trait(product)['sid']) + 'T')
+    print trait_sids
+    return ' OR '.join(trait_sids)
+
+        
+def create_category_segment(category):
+    if len(category.get_products()) == 0:
+        # no need to create segment because category has no products
+        return
+
+    segment_ic = 'category-' + str(category.id)
+    segment_rule = generate_segment_rule_for_category(category)
+
+    segment = {
+        'name': 'Interested in ' + category.name,
+        'segmentRule': segment_rule,
+        'folderId': 0,
+        'dataSourceId': get_or_create_shop_datasource()['dataSourceId'],
+        'integrationCode': segment_ic
+    }
+    response = api_exchange(POST, configs.AAM_SEGMENT_API_PATH, segment)
+    segment = response.json()
+    print 'AAM segment create:', segment
+    return segment
+
+
+def update_category_segment(old_category, new_category):
+    segment = get_category_segment(old_category)
+    if segment is not None:
+        segment['name'] = 'Interested in ' + new_category.name
+        segment['segmentRule'] = generate_segment_rule_for_category(new_category)
+        segment_id = str(segment['sid'])
+        response = api_exchange(PUT, configs.AAM_SEGMENT_API_PATH + '/' + segment_id, segment)
+        segment = response.json()
+        print 'AAM segment update:', segment
+    else:
+        segment = create_category_segment(new_category)
+    return segment
+
