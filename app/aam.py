@@ -42,3 +42,25 @@ def successful(response):
 
 def get_self():
     response = api_exchange(GET, configs.AAM_SELF_USER_API_PATH)
+
+
+def get_or_create_shop_datasource():
+    response = api_exchange(GET, configs.AAM_DATASOURCE_API_PATH + '?integrationCode=shop')
+
+    found = False
+    if successful(response) and len(response.json()) > 0:
+        found = True
+        datasource = response.json()[0]
+
+    if not found:
+        datasource = {
+            'name': 'Shop Data Source',
+            'integrationCode': 'shop',
+            'uniqueTraitIntegrationCodes': True,
+            'uniqueSegmentIntegrationCodes': True
+        }
+        response = api_exchange(POST, configs.AAM_DATASOURCE_API_PATH, datasource)
+        datasource = response.json()
+    print 'AAM datasource:', datasource
+    return datasource
+

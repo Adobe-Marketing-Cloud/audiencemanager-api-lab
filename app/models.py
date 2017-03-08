@@ -4,6 +4,7 @@ from . import utils
 from . import aam.py
 
 aam.get_self_user()
+aam.get_or_create_shop_datasource()
 
 
 class Category(models.Model):
