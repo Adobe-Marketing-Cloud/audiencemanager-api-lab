@@ -21,10 +21,12 @@ class Category(models.Model):
         if not self.id:
             # Category is being created
             super(Category, self).save(*args, **kwargs)
+            aam.create_category_trait_folder(self)
         else:
             # Category is being updated
             old_category = Category.objects.get(id=self.id)
             super(Category, self).save(*args, **kwargs)
+            aam.update_category_trait_folder(old_category, self)
 
 
 class Product(models.Model):

@@ -64,3 +64,46 @@ def get_or_create_shop_datasource():
     print 'AAM datasource:', datasource
     return datasource
 
+
+def get_category_trait_folder(category):
+    folder_name = category.name
+    trait_folder = None
+    response = api_exchange(GET, configs.AAM_TRAIT_FOLDER_API_PATH)
+    if successful(response):
+        root_folder = response.json()[0]
+        for sub_folder in root_folder['subFolders']:
+            if sub_folder['name'] == folder_name:
+                trait_folder = sub_folder
+                break
+    return trait_folder
+
+
+def create_category_trait_folder(category):
+    folder = {
+        'name': category.name,
+        'parentFolderId': 0
+    }
+    response = api_exchange(POST, configs.AAM_TRAIT_FOLDER_API_PATH, folder)
+    print 'AAM trait folder create:', response
+    return folder
+
+
+def update_category_trait_folder(old_category, new_category):
+    folder = get_category_trait_folder(old_category)
+    if folder is not None:
+        folder['name'] = new_category.name
+        folder_id = str(folder['folderId'])
+        response = api_exchange(PUT, configs.AAM_TRAIT_FOLDER_API_PATH + '/' + folder_id, folder)
+        print 'AAM trait folder update:', response
+        return folder
+    else:
+        return create_category_trait_folder(new_category)
+
+
+def get_or_create_category_trait_folder(category):
+    folder = get_category_trait_folder(category)
+    if folder is not None:
+        return folder
+    else:
+        return create_category_trait_folder(category)
+
