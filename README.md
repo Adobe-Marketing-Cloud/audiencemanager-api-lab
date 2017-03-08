@@ -1,7 +1,6 @@
 # Adobe Audience Manager REST API Lab for Automated Segmentation & Activation
 
-In this hand-on lab you’ll modify a sample e-commerce application that demonstrates calling Adobe Audience Manager's REST APIs and automatically create the data required to segment your site visitors.
-The sample app is built using the Django framework and Python language.
+In this hand-on lab you will modify a sample e-commerce application that demonstrates calling Adobe Audience Manager's REST APIs and automatically create the data required to segment your site visitors. The sample app is built using Python language and Django framework.
 
 ## Adobe Audience Manager (AAM) background 
 AAM is a Data Management Platform (DMP). It allows you to combine audience information on your visitors from different sources such as from your site, your CRM systems, strategic partners and third party relationships. You can make these audiences actionable by sending this information to wherever you choose, whether it's your own systems for site customization or to ad networks for ad targeting.
@@ -50,7 +49,7 @@ curl https://api-sandbox.demdex.com/v1/segments -H 'Authorization: Bearer PLACE-
 * Replace the placeholder inside the config file with your access token in this line:
 
 * Basic AAM API paths are already added for you in aam_configs.py file.
-
+
 
 ### Exercise-02: Create aam.py and implement an API connector
 * Create a new file under app directory: `app/aam.py`
@@ -299,7 +298,7 @@ def get_or_create_product_trait(product):
 ```
 
 * After making these code changes, go to product administration and add or edit a Product. Then refresh Traits page in AAM and you will notice the corresponding traits were automatically created for those products.
-
+
 
 ### Exercise-06: Create Segments for each Category automatically
 * We will auto create a segment to represent a visitor who is interested in any product within a category. To do this, we will implement few methods to GET, POST and PUT segments on AAM side.
@@ -383,8 +382,8 @@ def update_category_segment(old_category, new_category):
             aam.update_category_segment(self.category, self.category)
 ```
 
-### Exercise-07: Create a URL Destination for a DSP in AAM UI and then activate the Segments automatically from our sample app
-* We want to let a company we partner with know whenever a visitor qualifies for a category segment. We will give them our category id for the visitor. We will first create a URL type destination in AAM UI to receive segment activations. The destination will represent a DSP partner. Each time a visitor qualifies for a segment, we'll send the visitor and segment information to this destination.
+### Exercise-07: Create a URL Destination in AAM UI and then map the Segments automatically from our sample app for real-time activation
+* We want to let a company we partner with know whenever a visitor qualifies for a category segment. We will give them our category id for the visitor. We will first create a URL type destination in AAM UI to receive segment activations. Each time a visitor qualifies for a segment, we'll send the visitor and segment information to this destination.
 
 * Visit the destination list page in AAM and copy the id of the created destination. Add this destination id in `config/aam_config.py`
 ```python
