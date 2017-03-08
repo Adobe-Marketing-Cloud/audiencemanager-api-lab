@@ -1,4 +1,10 @@
 # Exercise-01 - Use curl to generate a new API token
 ====================================================
 
-curl -X POST https://api-sandbox.demdex.com/oauth/token --user summit2017:summit2017 --data 'grant_type=password&username=summit2017test&password=PASS'
+
+# generate token
+curl -X POST https://api-sandbox.demdex.com/oauth/token --user summit2017:summit2017 --data 'grant_type=password&username=YOUR_USER&password=YOUR_PASSWORD'
+
+
+# check your access token
+curl https://api-sandbox.demdex.com/v1/segments -H 'Authorization: Bearer PLACE-YOUR-TOKEN-HERE'
