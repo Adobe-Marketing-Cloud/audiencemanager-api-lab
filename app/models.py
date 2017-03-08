@@ -1,6 +1,9 @@
 from __future__ import unicode_literals
 from django.db import models
 from . import utils
+from . import aam.py
+
+aam.get_self_user()
 
 
 class Category(models.Model):
