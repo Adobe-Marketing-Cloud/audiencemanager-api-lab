@@ -44,7 +44,9 @@ class Product(models.Model):
         if not self.id:
             # Product is being created
             super(Product, self).save(*args, **kwargs)
+            aam.create_product_trait(self)
         else:
             # Product is being updated
             old_product = Product.objects.get(id=self.id)
             super(Product, self).save(*args, **kwargs)
+            aam.update_product_trait(old_product, self)

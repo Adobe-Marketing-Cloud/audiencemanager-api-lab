@@ -107,3 +107,50 @@ def get_or_create_category_trait_folder(category):
     else:
         return create_category_trait_folder(category)
 
+
+def get_product_trait(product):
+    trait_ic = 'product-' + str(product.id)
+    response = api_exchange(GET, configs.AAM_TRAIT_API_PATH + '/ic:' + trait_ic)
+    if successful(response):
+        trait = response.json()
+        return trait
+    else:
+        return None
+
+
+def create_product_trait(product):
+    trait_ic = 'product-' + str(product.id)
+    trait = {
+        'name': 'Interested in ' + product.name,
+        'traitRule': 'product==' + str(product.id),
+        'folderId': get_or_create_category_trait_folder(product.category)['folderId'],
+        'dataSourceId': get_or_create_shop_datasource()['dataSourceId'],
+        'integrationCode': trait_ic,
+        'traitType': 'RULE_BASED_TRAIT'
+    }
+    response = api_exchange(POST, configs.AAM_TRAIT_API_PATH, trait)
+    trait = response.json()
+    print 'AAM trait create:', trait
+    return trait
+
+
+def update_product_trait(old_product, new_product):
+    trait = get_product_trait(old_product)
+    if trait is not None:
+        trait['name'] = 'Interested in ' + new_product.name
+        trait_id = str(trait['sid'])
+        response = api_exchange(PUT, configs.AAM_TRAIT_API_PATH + '/' + trait_id, trait)
+        trait = response.json()
+        print 'AAM trait update:', trait
+        return trait
+    else:
+        return create_product_trait(new_product)
+
+
+def get_or_create_product_trait(product):
+    trait = get_product_trait(product)
+    if trait is not None:
+        return trait
+    else:
+        return create_product_trait(product)
+
