@@ -52,7 +52,7 @@ def get_self():
 
 #------ models.py ------
 
-from . import aam.py
+from . import aam
 
-aam.get_self_user()
+aam.get_self()
 
