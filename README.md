@@ -106,9 +106,9 @@ def get_self():
 
 * Open `app/models.py` and add these lines under rest of the import statements:
 ```python
-from . import aam.py
+from . import aam
 
-aam.get_self_user()
+aam.get_self()
 ```
 
 * Now switch to your terminal. If you check the logs, you will notice the application was restarted automatically and an API call was made to get the user information.
@@ -385,7 +385,7 @@ def update_category_segment(old_category, new_category):
 ### Exercise-07: Create a URL Destination in AAM UI and then map the Segments automatically from our sample app for real-time activation
 * We want to let a company we partner with know whenever a visitor qualifies for a category segment. We will give them our category id for the visitor. We will first create a URL type destination in AAM UI to receive segment activations. Each time a visitor qualifies for a segment, we'll send the visitor and segment information to this destination.
 
-* Visit the destination list page in AAM and copy the id of the created destination. Add this destination id in `config/aam_config.py`
+* Visit the destination list page in AAM and copy the id of the created destination. Add this destination id in `config/aam_configs.py`
 ```python
 AAM_DESTINATION_ID = 'PLACE-DESTINATION-ID-HERE'
 ```
