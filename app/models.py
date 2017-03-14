@@ -1,9 +1,9 @@
 from __future__ import unicode_literals
 from django.db import models
 from . import utils
-from . import aam.py
+from . import aam
 
-aam.get_self_user()
+aam.get_self()
 aam.get_or_create_shop_datasource()
 
 
